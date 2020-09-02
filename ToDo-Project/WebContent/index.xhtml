@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="css/style.css" />
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+</h:head>
+<h:body>
+
+	<h:form id="form">
+		<div class="container">
+			<div align="center">
+
+				<div id="myDiv" class="header">
+
+					<h1 class="myH1">TODOS</h1>
+					<br />
+					<p:inputText value="${todoController.todo.toDoName}"
+						placeholder="What needs to be done?" />
+					<p:commandButton class="addBtn" value="Add"
+						action="#{todoController.add()}" update="form" />
+				</div>
+
+				<p:dataTable var="toDo" value="#{todoController.todoList()}"
+					border="1" cellpadding="2" cellspacing="2"
+					styleClass="dataTableCenter">
+
+					<p:column>
+						<f:facet name="header">
+						#{todoController.todo.items} &nbsp;Tasks&nbsp;&nbsp;
+						<p:commandLink
+								style="font-size:13px;margin-left:300px;text-decoration:underline;"
+								value="Clear All" action="#{todoController.deleteAll(toDo)}"
+								update="form" />
+
+						</f:facet>
+						<!-- <h:outputText id="outTodo" value="${toDo.toDoName}" /> -->
+						<p>#{toDo.toDoName}</p>
+					</p:column>
+					<p:column headerText="Delete" style="width:60px;">
+						<p:commandButton class="deleteBtn"
+							action="#{todoController.delete(toDo)}" value="&#10060;"
+							onclick="return confirm('Are you sure?')" update="form" />
+
+					</p:column>
+				</p:dataTable>
+
+			</div>
+		</div>
+	</h:form>
+
+
+</h:body>
+</html>
